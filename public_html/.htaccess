@@ -1,0 +1,17 @@
+# Serve index.html by default
+DirectoryIndex index.html
+
+# Enable basic URL rewriting (optional)
+<IfModule mod_rewrite.c>
+RewriteEngine On
+# Redirect all requests to index.html (for SPA)
+# RewriteCond %{REQUEST_FILENAME} !-f
+# RewriteCond %{REQUEST_FILENAME} !-d
+# RewriteRule . /index.html [L]
+</IfModule>
+
+# Deny access to .htaccess itself
+<Files .htaccess>
+  Order allow,deny
+  Deny from all
+</Files>
