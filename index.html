@@ -976,30 +976,30 @@ standardization.</li>
   });
 
   resetView();
-  const toggle = document.getElementById('dark-mode-toggle');
+  const toggleSwitch = document.getElementById('dark-mode-toggle');
 
 function setDarkMode(enabled) {
   if (enabled) {
     document.body.classList.add('dark-mode');
     document.body.classList.remove('light-mode');
-    toggle.setAttribute('aria-checked', 'true');
+    toggleSwitch.setAttribute('aria-checked', 'true');
   } else {
     document.body.classList.add('light-mode');
     document.body.classList.remove('dark-mode');
-    toggle.setAttribute('aria-checked', 'false');
+    toggleSwitch.setAttribute('aria-checked', 'false');
   }
 }
 
 // Initialize state (dark mode default)
 setDarkMode(false);
 
-toggle.addEventListener('change', () => {
-  setDarkMode(!toggle.checked); // checked means light mode off
+toggleSwitch.addEventListener('change', () => {
+  setDarkMode(!toggleSwitch.checked); // checked means light mode off
 });
 
 // Sync toggle checked state with body class on page load
 window.addEventListener('DOMContentLoaded', () => {
-  toggle.checked = true; // default dark mode ON, so unchecked means dark mode
+  toggleSwitch.checked = true; // default dark mode ON, so unchecked means dark mode
 });
 </script>
 
