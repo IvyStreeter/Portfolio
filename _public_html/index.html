@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ivy Streeter</title>
+
+<meta property="og:title" content="Ivy Streeter" />
+<meta property="og:description" content="Portfolio" />
+<meta property="og:image" content="https://ivystreeter.com/images/Ivy2.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:url" content="https://ivystreeter.com/" />
+<meta property="og:type" content="website" />
+<style>
+
+/*timeline*/
+.timeline {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  margin: 40px 20px;
+  padding: 0 10px;
+  width: 100%;
+  max-width: 600px;
+  box-sizing: border-box;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 50%; /* horizontal line centered */
+  left: 5%;
+  right: 5%;
+  height: 2px;
+  background-color: #000;
+  transform: translateY(-50%);
+  z-index: 0;
+}
+
+.timeline-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 25%;
+  text-align: center;
+  z-index: 1;
+  box-sizing: border-box;
+  padding: 10px;
+}
+
+.dot {
+  position: absolute;
+  top: 50%; /* center on line */
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: #5a9e90;
+  z-index: 2;
+}
+
+/* MOBILE: vertical timeline */
+@media (max-width: 480px) {
+  .timeline {
+    display: none;
+  }
+}
+    /* Dark mode toggle switch */
+  .dark-mode-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #777;
+  user-select: none;
+  position: relative;
+  }
+
+  .dark-mode-label input[type="checkbox"] {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+    left: -9999px;
+  }
+
+  .dark-mode-label .switch {
+    position: relative;
+    width: 40px;
+    height: 20px;
+    background-color: #444;
+    border-radius: 12px;
+    transition: background-color 0.3s ease;
+    flex-shrink: 0;
+  }
+
+  .dark-mode-label .switch::before {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 16px;
+    height: 16px;
+    background-color: #8ab4f8;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+  }
+
+  .dark-mode-label input[type="checkbox"]:checked + .switch {
+    background-color: #8ab4f8;
+  }
+
+  .dark-mode-label input[type="checkbox"]:checked + .switch::before {
+    transform: translateX(20px);
+  }
+
+  /* Light mode overrides */
+  body.light-mode {
+    background-color: #f0f0f0;
+    color: #222;
+    overflow-x: hidden;
+  }
+
+  body.light-mode a {
+    color: #1a73e8;
+  }
+
+  body.light-mode a:hover,
+  body.light-mode a:focus {
+    color: #1257a6;
+  }
+
+  body.light-mode #sidebar {
+    background-color: #eaeaea;
+    border-right-color: #777;
+    color: #222;
+  }
+
+  body.light-mode #sidebar h1 {
+    color: #111;
+  }
+
+  body.light-mode #sidebar p {
+    color: #444;
+  }
+
+  body.light-mode #sidebar nav ul li a {
+    color: #222;
+  }
+
+  body.light-mode #sidebar nav ul li a:hover,
+  body.light-mode #sidebar nav ul li a:focus {
+    background-color: #d0d0d0;
+    color: #1a73e8;
+  }
+
+  body.light-mode .profession-item {
+    background-color: #ddd;
+    color: #222;
+    border-color: transparent;
+    box-shadow: none;
+  }
+
+  body.light-mode .profession-item:hover:not(.selected),
+  body.light-mode .profession-item:focus-visible:not(.selected) {
+    background-color: #a0b8f8;
+    color: #111;
+    border-color: #4a6fff;
+    box-shadow: none;
+  }
+
+  body.light-mode .profession-item.selected {
+    background-color: #4a6fff;
+    color: #fff;
+    border-color: #adc6ff;
+    box-shadow: 0 0 15px #4a6fffaa;
+  }
+
+  body.light-mode .skill-item {
+    background-color: #bbb;
+    color: #333;
+    opacity: 0.7;
+  }
+
+  body.light-mode .skill-item.highlight {
+    background-color: #4a6fff;
+    color: #fff;
+    opacity: 1;
+    box-shadow: 0 0 12px #4a6fffbb;
+  }
+
+  body.light-mode .experience {
+    color: #222;
+    border-left-color: #bbb;
+  }
+
+  body.light-mode .highlight-experience {
+    color: #4a6fff;
+  }
+
+  /* Adjust social icons in light mode */
+  body.light-mode .social-icons a {
+    color: #555;
+  }
+
+  body.light-mode .social-icons a:hover,
+  body.light-mode .social-icons a:focus {
+    color: #4a6fff;
+  }
+  /* Reset and base */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+  body, html {
+    margin: 0; padding: 0; height: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #1e1e1e;
+    color: #ddd;
+    overflow-x: hidden;
+  }
+  a {
+    color: #8ab4f8;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  a:hover, a:focus {
+    color: #aecbfa;
+    outline: none;
+  }
+  /* Layout containers */
+  #sidebar {
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    width: 280px;
+    background-color: #2c2c2c;
+    padding: 30px 20px;
+    border-right: 2px solid #444;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  #sidebar img {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px #4a90e2;
+  }
+  #sidebar h1 {
+    font-size: 1.8rem;
+    margin: 0 0 8px 0;
+    font-weight: 700;
+    color: #fff;
+    text-align: center;
+  }
+  #sidebar p {
+    font-size: 1rem;
+    line-height: 1.4;
+    color: #aaa;
+    text-align: center;
+    margin: 0 0 25px 0;
+    user-select: none;
+  }
+  #sidebar nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+  }
+  #sidebar nav ul li {
+    margin: 15px 0;
+  }
+  #sidebar nav ul li a {
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    color: #ddd;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+  }
+  #sidebar nav ul li a:hover, #sidebar nav ul li a:focus {
+    background-color: #3a3a3a;
+    color: #8ab4f8;
+    outline: none;
+  }
+
+  #main-content {
+    margin-left: 280px;
+    padding: 40px 50px;
+    max-width: 850px;
+  }
+
+  /* Headings */
+  h2 {
+    font-weight: 700;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #444;
+    padding-bottom: 6px;
+  }
+
+  /* About Me */
+  .about-me p {
+    font-size: 1.15rem;
+    line-height: 1.6;
+    margin-bottom: 35px;
+    color: #777;
+  }
+
+  /* Social Media in sidebar */
+  .social-icons {
+    display: flex;
+    gap: 25px;
+    justify-content: center;
+    margin-bottom: 25px;
+  }
+  .social-icons a {
+    color: #888;
+    font-size: 1.4rem;
+    transition: color 0.3s ease;
+  }
+  .social-icons a:hover, .social-icons a:focus {
+    color: #8ab4f8;
+    outline: none;
+  }
+
+  #sidebar .social-icons img {
+  width: 32px;   /* or any size you prefer */
+  height: 32px;
+  object-fit: contain;
+  vertical-align: middle;
+}
+
+  /* Professions */
+  .professions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 30px;
+  }
+  .profession-item {
+    flex: 1 1 160px;
+    background-color: #3a3a3a;
+    color: #777;
+    padding: 15px 20px;
+    border-radius: 12px;
+    font-weight: 700;
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.3s ease, transform 0.25s ease, color 0.3s ease;
+    border: 2px solid transparent;
+  }
+  .profession-item:hover:not(.selected),
+  .profession-item:focus-visible:not(.selected) {
+    background-color: #566fc6;
+    color: #eef2ff;
+    transform: scale(1.05);
+    outline: none;
+    border-color: #8ab4f8;
+  }
+  .profession-item.selected {
+    background-color: #8ab4f8;
+    color: #1a1a1a;
+    border-color: #adc6ff;
+    font-weight: 800;
+    transform: scale(1.1);
+    cursor: default;
+    box-shadow: 0 0 15px #8ab4f8aa;
+  }
+
+  /* Skills */
+  .skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 40px;
+    min-height: 60px;
+  }
+  .skill-item {
+    background-color: #444;
+    color: #bbb;
+    padding: 9px 18px;
+    border-radius: 20px;
+    font-weight: 600;
+    opacity: 0.7;
+    transition: background-color 0.3s ease, color 0.3s ease, opacity 0.3s ease, transform 0.25s ease;
+  }
+  .skill-item.highlight {
+    background-color: #8ab4f8;
+    color: #1a1a1a;
+    opacity: 1;
+    font-weight: 700;
+    transform: scale(1.1);
+    box-shadow: 0 0 12px #8ab4f8bb;
+  }
+  .skill-item.hidden {
+    display: none;
+  }
+
+  /* Experience */
+  .experience {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #ddd;
+    min-height: 100px;
+    margin-bottom: 50px;
+    border-left: 4px solid #444;
+    padding-left: 20px;
+  }
+  .highlight-experience {
+    color: #8ab4f8;
+    font-weight: 700;
+  }
+
+  /* Other sections */
+  section ul {
+    max-width: 700px;
+    margin: 0 0 30px 0;
+    padding-left: 20px;
+    color: #777;
+  }
+  section ul li {
+    margin-bottom: 12px;
+  }
+  .papers a {
+    font-weight: 600;
+    color: #8ab4f8;
+  }
+  .papers a:hover, .papers a:focus {
+    color: #aecbfa;
+  }
+
+  /* Responsive */
+  @media (max-width: 800px) {
+    #sidebar {
+      position: relative;
+      width: 100%;
+      height: auto;
+      border-right: none;
+      padding: 20px 15px;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    #sidebar img {
+      margin-bottom: 0;
+      margin-right: 15px;
+      width: 80px;
+      height: 80px;
+    }
+    #sidebar h1 {
+      font-size: 1.3rem;
+      text-align: left;
+      margin: 0 10px 0 0;
+      flex: 1 1 100%;
+    }
+    #sidebar p {
+      flex: 1 1 100%;
+      margin: 8px 0 10px 0;
+      text-align: center;
+    }
+    #sidebar nav ul {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      width: 100%;
+      margin-top: 10px;
+    }
+    #sidebar nav ul li {
+      margin: 0;
+    }
+    #main-content {
+      margin-left: 0;
+      padding: 25px 20px;
+    }
+    .professions {
+      justify-content: center;
+    }
+  }
+</style>
+</head>
+<body>
+  <aside id="sidebar" role="complementary" aria-label="Sidebar with profile and navigation">
+    <img src="images/Ivy2.jpg" alt="Profile Photo" />
+    <h1>Ivy S.L. Streeter</h1>
+    <p>Assay Development. Immunologist. Data Scientist. </p>
+
+    <div class="social-icons" aria-label="Social media links">
+      <a href="https://www.linkedin.com/in/ivystreeter/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" tabindex="0"><img src="images/LinkedIn.png" alt="LinkedIn" width="5" height="5"/></a>
+      <a href="https://github.com/IvyStreeter" target="_blank" rel="noopener noreferrer" aria-label="GitHub" tabindex="0"><img src="images/Github.png" alt="GitHub" width="5" height="5"/></a>
+      <a href="https://x.com/Ivy_Streeter" target="_blank" rel="noopener noreferrer" aria-label="X" tabindex="0"><img src="images/X.png" alt="X" width="5" height="5"/></a>
+      <a href="https://bsky.app/profile/ivystreeter.bsky.social" target="_blank" rel="noopener noreferrer" aria-label="BlueSky" tabindex="0"><img src="images/BlueSky.png" alt="Google Scholar" width="5" height="5"/></a>
+      <a href="https://scholar.google.com/citations?authuser=1&user=3g7bAa4AAAAJ" target="_blank" rel="noopener noreferrer" aria-label="Google Scholar" tabindex="0"><img src="images/GoogleScholar.png" alt="Google Scholar" width="5" height="5"/></a>
+    </div>
+
+    <nav aria-label="Primary navigation">
+      <ul>
+        <li><a href="#main-content" aria-current="page" tabindex="0">Home</a></li>
+        <li><a href="#">Github Digital Garden (TBD)</a></li>
+        <li><a href="#projects">Projects (TBD)</a></li>
+        <li><a href="#paper">Publications and Patents</a></li>
+        <li><a href="#education">Education</a></li>
+
+      </ul>
+      <li>
+  <label for="dark-mode-toggle" class="dark-mode-label" tabindex="0">
+    Dark Mode
+    <input type="checkbox" id="dark-mode-toggle" aria-checked="true" role="switch" />
+    <span class="switch"></span>
+  </label>
+</li>
+    </nav>
+  </aside>
+
+  <main id="main-content" role="main" tabindex="-1">
+    <section class="about-me" aria-label="About Me">
+      <h2>About Me</h2>
+      <p>Hello! I am a versatile professional with skills in multiple domains. I enjoy learning and applying my knowledge to solve real-world problems. Click on a profession to see relevant experience!</p>
+<div class="timeline">
+    <div class="timeline-item">
+      <div class="title">Bachelors: <br> Biology</div>
+      <div class="dot"></div>
+      <div class="spacer"></div>  <!-- Spacer for vertical gap -->
+      <div class="spacer"></div>  <!-- Spacer for vertical gap -->
+      <div class="spacer"></div>  <!-- Spacer for vertical gap -->
+      <div class="year">Dec 2018</div>
+      <div class="company">University of New Haven</div>
+    </div>  
+    <div class="timeline-item">
+      <div class="title">Masters: Cell and Molec. Biology</div>
+      <div class="dot"></div>
+      <div class="spacer"></div>  <!-- Spacer for vertical gap -->
+      <div class="year">Jan 2020</div>
+      <div class="company">University of New Haven</div>
+    </div>
+    <div class="timeline-item">
+      <div class="title"> RA III</div>
+      <div class="title greyed">RA II</div>
+      <div class="dot"></div>
+      <div class="spacer"></div>  <!-- Spacer for vertical gap -->
+      <div class="spacer"></div>  <!-- Spacer for vertical gap -->
+      <div class="year">2020</div>
+      <div class="company">Harvard University</div>
+    </div>
+    <div class="timeline-item">
+      <div class="title">Associate Scientist</div>
+      <div class="title greyed">Senior RA</div>
+      <div class="dot"></div>
+
+      <div class="year">2023</div>
+      <div class="company">Intellia Therapeutics</div>
+    </div>
+
+  </div>
+    </section>
+
+    <section class="interactive-section" aria-label="Professions, Skills and Relevant Experience">
+      <div class="professions" role="list" aria-label="Professions">
+        <div class="profession-item" data-profession="assay-developer-ngs" role="listitem" tabindex="0">Assay Development (NGS)</div>
+        <div class="profession-item" data-profession="assay-developer-cell" role="listitem" tabindex="0">Assay Development (Cellular)</div>
+        <div class="profession-item" data-profession="immunologist" role="listitem" tabindex="0">Immunologist</div>
+        <div class="profession-item" data-profession="data-scientist" role="listitem" tabindex="0">Data Scientist</div>
+
+      </div>
+
+      <div class="skills" aria-label="Skills">
+        <div class="skill-item" data-skill-for="assay-developer-ngs">CRISPR</div><div class="skill-item" data-skill-for="assay-developer-ngs">Next-Generation Sequencing (NGS)</div>
+        <div class="skill-item" data-skill-for="assay-developer-ngs">DNA Library Preparation</div>
+        <div class="skill-item" data-skill-for="assay-developer-ngs">Illumina</div>
+        <div class="skill-item" data-skill-for="assay-developer-ngs">High-Throughput Screening</div>
+        <div class="skill-item" data-skill-for="assay-developer-ngs">Automation Hamilton</div>
+        <div class="skill-item" data-skill-for="assay-developer-ngs">Automation Prime HighRes</div>
+        <div class="skill-item" data-skill-for="assay-developer-ngs">PCR</div>
+        <div class="skill-item" data-skill-for="assay-developer-ngs">Nucleofection / Electroporation</div>
+
+        <div class="skill-item" data-skill-for="immunologist">CRISPR</div>
+        <div class="skill-item" data-skill-for="immunologist">Pooled CRISPR Screens</div>
+        <div class="skill-item" data-skill-for="immunologist">Flow Cytometry (8 panel)</div>
+        <div class="skill-item" data-skill-for="immunologist">Cell Sorting, FACs (HSCs lineage-ckit+sca1+)</div>
+        <div class="skill-item" data-skill-for="immunologist">CD8 T cell</div>
+        <div class="skill-item" data-skill-for="immunologist">Cell Line Characterization</div>
+        <div class="skill-item" data-skill-for="immunologist">Murine Hematopoietic Stem Cells (HSCs LSKs)</div>
+        <div class="skill-item" data-skill-for="immunologist">Nucleofection / Electroporation</div>
+        <div class="skill-item" data-skill-for="immunologist">Murine Models</div>
+        <div class="skill-item" data-skill-for="immunologist">Cell Line Development (OVA expressing)</div>
+        <div class="skill-item" data-skill-for="immunologist">cytokine profiling</div>
+        <div class="skill-item" data-skill-for="immunologist">immune phenotyping</div>
+        <div class="skill-item" data-skill-for="immunologist">Cesium irradiation, husbandry, handle, care, and euthanasia</div>
+        <div class="skill-item" data-skill-for="immunologist">Lateral tail vein injections</div>
+        <div class="skill-item" data-skill-for="immunologist">Intra-peritoneal injections</div>
+        <div class="skill-item" data-skill-for="immunologist">Oral gavage</div>
+        <div class="skill-item" data-skill-for="immunologist">Subcutaneous tumor injections</div>
+        <div class="skill-item" data-skill-for="immunologist">Retro-orbital bleeding</div>
+        <div class="skill-item" data-skill-for="immunologist">Murine Spleen and Lymph Node Isolation (inguinal, brachial, axillary, cervical, mesenteric, and lumbar)</div>
+
+
+        <div class="skill-item" data-skill-for="assay-developer-cell">CRISPR</div>
+        <div class="skill-item" data-skill-for="assay-developer-cell">Functional Genomics</div>
+        <div class="skill-item" data-skill-for="assay-developer-cell">Nucleofection / Electroporation</div>
+        <div class="skill-item" data-skill-for="assay-developer-cell">Transfection</div>
+        <div class="skill-item" data-skill-for="assay-developer-cell">Transduction</div>
+        <div class="skill-item" data-skill-for="assay-developer-cell">Primary Human Hepatocytes (PHH) </div>
+        <div class="skill-item" data-skill-for="assay-developer-cell">Primary Human Hematopoietic Stem Cells (CD34+ HSCs)</div>
+        <div class="skill-item" data-skill-for="assay-developer-cell">HUDEP-2</div>
+        <div class="skill-item" data-skill-for="assay-developer-cell">Murine T Cells</div>
+        <div class="skill-item" data-skill-for="assay-developer-cell">Human PBMC processing</div>
+        <div class="skill-item" data-skill-for="assay-developer-cell">Various Cancer Cell Lines</div>
+        <div class="skill-item" data-skill-for="assay-developer-cell">Genome In a Bottle (LCLs from Coriell)</div>
+        <div class="skill-item" data-skill-for="assay-developer-cell">Western Blot</div>
+        
+        <div class="skill-item" data-skill-for="data-scientist">Machine Learning (ML)</div>
+        <div class="skill-item" data-skill-for="data-scientist">Large Language Models (LLMs)</div>
+        <div class="skill-item" data-skill-for="data-scientist">Data Modeling</div>
+        <div class="skill-item" data-skill-for="data-scientist">Data Mining</div>
+        <div class="skill-item" data-skill-for="data-scientist">Bulk RNA-Seq</div>
+        <div class="skill-item" data-skill-for="data-scientist">Single Cell RNA-Seq</div>
+        <div class="skill-item" data-skill-for="data-scientist">Python, ggplot2, Pandas, Matplotlib, Seaborn, Jupyter Notebook</div>
+        <div class="skill-item" data-skill-for="data-scientist">R, DESeq2, CellRanger</div>
+        <div class="skill-item" data-skill-for="data-scientist">Data Analysis</div>
+        <div class="skill-item" data-skill-for="data-scientist">Visualization</div>
+        <div class="skill-item" data-skill-for="data-scientist">VS Code</div>
+        <div class="skill-item" data-skill-for="data-scientist">High Performance Computing with SLURM Scheduler</div>
+        <div class="skill-item" data-skill-for="data-scientist">SQL</div>
+        <div class="skill-item" data-skill-for="data-scientist">C</div>
+        <div class="skill-item" data-skill-for="data-scientist">C++</div>
+        <div class="skill-item" data-skill-for="data-scientist">Java</div>
+        <div class="skill-item" data-skill-for="data-scientist">Git</div>
+      </div>
+
+      <section class="experience" aria-live="polite" aria-atomic="true" tabindex="0" aria-label="Relevant Experience">
+        <h2>Relevant Experience</h2>
+        <p class="experience-text">Hover over a profession to see relevant experience here.</p>
+      </section>
+    </section>
+
+    <section id="projects" class="projects" aria-label="Projects">
+      <h2>Projects</h2>
+      <ul>
+        <li><strong>TBD</strong>: Please wait, coming soon.</li>
+      </ul>
+    </section>
+
+    <section id="paper" class="papers" aria-label="papers">
+    <h2>Publications and Patents</h2>
+    <ul>
+        <li>
+        LaFleur M.W., Lemmen A.M., <b>Streeter I.S.L.</b> et al. X-CHIME enables combinatorial, inducible, lineage-specific and sequential knockout of genes in the immune system. <em>Nat Immunol</em> 25, 178–188 (2024). <a href="https://doi.org/10.1038/s41590-023-01689-6" target="_blank" rel="noopener noreferrer" tabindex="0">https://doi.org/10.1038/s41590-023-01689-6</a>
+        </li>
+        <li>
+        Milling L.E., Markson S.C., Tjokrosurjo Q., Derosia N.M., <b>Streeter I.S.L.</b> et al. Framework for in vivo T cell screens. <em>J Exp Med</em> 1 April 2024; 221 (4): e20230699. doi: <a href="https://doi.org/10.1084/jem.20230699" target="_blank" rel="noopener noreferrer" tabindex="0">https://doi.org/10.1084/jem.20230699</a>
+        </li>
+        <li>
+        LaFleur, M.W., D’Andrea J.M., D.G. Patterson, <b>Streeter I.S.L.</b>, et al. In Vivo CRISPR Screening Reveals CHD7 as a Positive Regulator of Short-lived Effector Cells. <em>J Immunol</em> 15 November 2024; 213 (10): 1528–1541. <a href="https://doi.org/10.4049/jimmunol.2400213" target="_blank" rel="noopener noreferrer" tabindex="0">https://doi.org/10.4049/jimmunol.2400213</a>
+        </li>
+        <li>
+          LaFleur, M.W., …, <b>Streeter I.S.L</b>, et al. A STUB1–CHIC2 complex inhibits CD8+ T cells to restrain tumor immunity. <em>Nat. Immunol (2025).</em> <a href="https://doi.org/10.1038/s41590-025-02231-6" target="_blank" rel="noopener noreferrer" tabindex="0">https://doi.org/10.1038/s41590-025-02231-6</a>
+        </li>
+        <li>
+        LaFleur M.W, …, <b>Streeter I.S.L</b>, et al. (Pending). Methods and compositions for treating cancers by modulating the expression and/or activity of STUB1.  <a href="https://patentcenter.uspto.gov/applications/PCT%2FUS23%2F73178" target="_blank" rel="noopener noreferrer" tabindex="0">U.S. Patent No. PCT/US23/73178. U.S. Patent and Trademark Office.</a>
+        </li>
+    </ul>
+    </section>
+
+    <section id="education" class="education" aria-label="Education">
+      <h2>Education</h2>
+      <ul>
+        <li>MASTERS, Data Science | Harvard University, Extension School</li>
+        <li>DATA SCIENCE CERTIFICATE | Harvard University, Extension School</li>
+        <li>MASTERS, Cellular and Molecular Biology | University of New Haven</li>
+        <li>BACHELORS, Biology | University of New Haven</li>
+      </ul>
+    </section>
+  </main>
+
+<script>
+  const professionItems = document.querySelectorAll('.profession-item');
+  const skillItems = document.querySelectorAll('.skill-item');
+  const experienceText = document.querySelector('.experience-text');
+
+  const experiences = {
+    'assay-developer-ngs': 
+    
+    `Scientist with experience in genome editing, in vivo <span class="highlight-experience">CRISPR</span> screens, functional genomics, and immunology. At Intellia Therapeutics, I led, designed, and optimized CRISPR/Cas9 off-target assays for <span class="highlight-experience">NGS</span> readouts. At Harvard Medical School, I utilized in vivo pooled CRISPR screens to identify negative regulators of CD8 T cells in response to cancer and infection. I bring a versatile experimental toolkit ranging from NGS and primary cell engineering to in vivo murine models, paired with a growing fluency in Python, R, and bioinformatics pipelines. Known for a solution-focused mindset and a collaborative spirit, I am driven to solve complex biological problems by connecting wet and dry lab experiences.
+    
+    <p><strong>Intellia Therapeutics, Genomics Innovation</strong><br>
+    <strong>Ruan Oliveria, PhD and Mehdi Baratchian, PhD</strong></p>
+
+    Associate Scientist 1/2025 – Present<br>
+    Senior Research Associate 4/2023 – 1/2025<br>   
+<ul>
+    <li>Adapts to evolving company priorities by expanding responsibilities in a leaner research environment, including automation, high-throughput off-target evaluation, gRNA screening in various cell types. Continuously refines technical and analytical skills to develop, optimize, and standardize CRISPR/Cas9 off-target assays for assessing gene editing outcomes (LNP or AAV delivery).</li>
+    <li>Actively collaborates cross-functionally with scientists and computational biologists to help interpret complex datasets, integrating experimental findings with computational insights to drive research decisions.</li>
+    <li>Designs Python scripts for automating downstream analysis and visualization of sequencing data, streamlining data wrangling and interpretation workflows.</li>
+    <li>Conducts statistical analysis to assess the significance of experimental data, providing actionable insights to support scientific findings. </li>
+    <li>Manages multiple projects simultaneously, ensuring effective communication with key stakeholders to foster collaboration and timely delivery of high-quality outcomes.</li>
+    <li>Documents detailed procedure, results, data interpretation in Electronic Lab Notebooks (ELN), maintaining accuracy and created standard operating procedures (SOP).</li>
+
+
+    </ul>
+    <p><strong>Harvard University, Department of Immunology</strong><br>
+    <strong>Martin LaFleur, PhD & Arlene Sharpe, MD, PhD</strong></p>
+
+    Research Assistant III 5/2021 – 4/2023<br>
+    Research Assistant II 5/2020 – 6/2021<br>
+
+    <ul>
+      <li>Performed in vivo CRISPR screens to identify, investigate, and confirm negative regulators that determine CD8 T cell fate. Studies also include using murine depletion studies with the CHimeric IMmune Editing (CHIME) platform and nucleofection in LCMV Armstrong and cancer models.</li>
+      <li>Created and characterized various OVA expressing cancer cell lines to determine gene knockout outcome for new in vivo murine models.</li>
+      <li>Developed and optimized nucleofection assays on primary murine naïve CD8 T cells to confirm tumor models from T cell screens.</li>
+      <li>Performed comprehensive data analysis from CRISPR screen studies including evaluation of sequencing depth, area under the curve (AUC) of cumulative reads, sample concordance, and assessing significance by log2 fold change and z-score.</li>
+      <li>Leveraged Python for additional analysis of 2747-UMI-gRNA CRISPR screen, integrating results from the Broad Institute’s Genomic Perturbation Platform (e.g., hypergeometric analysis) for more robust data interpretation.</li>
+      <li>Analyzed gene expression in bulk RNA-seq data with treated and control samples, using R, HPC, and existing pipelines for differential expression with DESEQ2 and GSEA.</li>
+    </ul>
+    `,
+    
+    
+    'assay-developer-cell': 
+    `Scientist with extensive experience in immuno-oncology and <span class="highlight-experience">CRISPR</span> 
+    <span class="highlight-experience">Functional Genomics</span> focused on designing and optimizing in vitro and in vivo assays to evaluate immune responses and gene editing outcomes. Skilled in working with <span class="highlight-experience">primary human</span> and murine <span class="highlight-experience">immune cells</span>, performing screens, and analyzing resulting data using R and Python. Proven track record of supporting therapeutic gene editing platforms and collaborating across cross-functional teams to guide preclinical research.
+    
+    <p><strong>Intellia Therapeutics, Genomics Innovation</strong><br>
+    <strong>Ruan Oliveria, PhD and Mehdi Baratchian, PhD</strong></p>
+
+    Associate Scientist 1/2025 – Present<br>
+    Senior Research Associate 4/2023 – 1/2025<br>   
+<ul>
+    <li>Optimized functional CRISPR/Cas9 assays for gene editing in multiple cell lines and primary cells (PHH, HSCs, HUDEP-2, HEK293, and LCLs)</li>
+    <li>High-Throughput NGS Readout for gene editing outcome</li>
+    <li>Collaborated cross-functionally with automation engineers and bioinformaticians to interpret large datasets to guide decision making.</li>
+    <li>Maintained detailed SOPs and ELNs for assay development and molecular workflow
+standardization.</li>
+    </ul>
+    <p><strong>Harvard University, Department of Immunology</strong><br>
+    <strong>Martin LaFleur, PhD & Arlene Sharpe, MD, PhD</strong></p>
+
+    Research Assistant III 5/2021 – 4/2023<br>
+    Research Assistant II 5/2020 – 6/2021<br>
+
+    <ul>
+      <li>Designed and executed in vivo CRISPR screens targeting regulators of CD8 T cell activation, exhaustion, and memory in tumor and infection models with transgenic mice.</li>
+      <li>Performed nucleofection and lentiviral transduction of primary murine naïve CD8+ T cells.</li>
+      <li>Designed in vitro functional assays to assess cytotoxicity and cytokine production via flow cytometry and CBA.</li>
+      <li>Developed tumor models with OVA-expressing cancer cell lines to investigate T cell responses post-edit.</li>
+    
+      <p><strong>Yale University School of Medicine, Department of OBGYN</strong><br>
+    
+    <strong>Harvey Kliman, MD, PhD and Yang Yang-Hartwich, PhD</strong></p>
+
+    Research Internships 4/2018 – 5/2020 <br>
+
+    <li> Developed small molecule drug response assays for cancer models; performed qPCR and western blot-based quantification.</li>
+    <li> Cultured immune cells and generated LNP formulations for plasmid delivery.</li>
+    <li> Performed gene expression profiling to evaluate exercise effects on ovarian cancer models.</li>
+    </ul>`,
+    
+    
+    'immunologist': 
+    
+    `Scientist with a strong background in immuno-oncology, <span class="highlight-experience">CRISPR</span> functional genomics, and assay development. Experienced in designing and executing in vivo and in vitro experiments to evaluate <span class="highlight-experience">CD8 T cell</span> biology and therapeutic gene editing outcomes. Demonstrated expertise in <span class="highlight-experience">Murine Models</span>, <span class="highlight-experience">Cell Line Characterization</span>, <span class="highlight-experience">immune phenotyping</span>, <span class="highlight-experience">cytokine profiling</span>, and <span class="highlight-experience">High-Throughput Screening</span>. Known for a solution-focused mindset and a collaborative spirit, I am driven to solve complex biological problems and commitment to reproducible data-driven insights.
+
+    <p><strong>Intellia Therapeutics, Genomics Innovation</strong><br>
+    <strong>Ruan Oliveria, PhD and Mehdi Baratchian, PhD</strong></p>
+
+    Associate Scientist 1/2025 – Present<br>
+    Senior Research Associate 4/2023 – 1/2025<br>   
+<ul>
+    <li>Developed and optimized CRISPR/Cas9 off-target and functional assays across multiple cell types for off-target evaluation. </li>
+    <li>Led experimental design and execution for gene editing assessment with high-throughput and NGS platforms.</li>
+    <li>Collaborated cross-functionally with automation engineers and bioinformaticians to interpret large datasets to guide decision making.</li>
+    <li>Documents detailed procedure, results, data interpretation in Electronic Lab Notebooks (ELN), maintaining accuracy and created standard operating procedures (SOP).</li>
+    </ul>
+    <p><strong>Harvard University, Department of Immunology</strong><br>
+    <strong>Martin LaFleur, PhD & Arlene Sharpe, MD, PhD</strong></p>
+
+    Research Assistant III 5/2021 – 4/2023<br>
+    Research Assistant II 5/2020 – 6/2021<br>
+
+    <ul>
+      <li>Performed in vivo CRISPR screens to identify, investigate, and confirm negative regulators of CD8 T cell activation, exhaustion, and memory formation in cancer and infection models.</li>
+      <li>Developed and optimized nucleofection assays on primary murine naïve CD8 T cells to confirm tumor models from T cell screens. Functional evaluation via surface and intracellular flow cytometry, cytokine detection, and memory or exhaustion profiling (e.g., GZMB, PD1, Slamf6, Tim3,CD62L, CD44).</li>
+      <li>Developed OVA expressing cancer cell lines to determine gene knockout outcome on immune response.</li>
+      <li>Performed comprehensive data analysis from CRISPR screen studies including evaluation of sequencing depth, area under the curve (AUC) of cumulative reads, sample concordance, and assessing significance by log2 fold change and z-score.</li>
+      <li>Leveraged Python for additional analysis of 2747-UMI-gRNA CRISPR screen, integrating results from the Broad Institute’s Genomic Perturbation Platform (e.g., hypergeometric analysis) for more robust data interpretation.</li>
+      <li>Analyzed gene expression in bulk RNA-seq data with treated and control samples, using R, HPC, and existing pipelines for differential expression with DESEQ2 and GSEA.</li>
+    </ul>`,
+
+
+    'data-scientist': 
+    `As a Data Scientist, I have a strong background in genomics, data integration, and collaborative translation research across biotech and academia. Experience in developing and maintaining data workflows for high-throughput sequencing platforms and CRISPR-based assays. Proficient in <span class="highlight-experience">Python</span> and <span class="highlight-experience">R</span> for <span class="highlight-experience">Single Cell RNA-Seq</span> and <span class="highlight-experience">Bulk RNA-Seq</span> <span class="highlight-experience">Data Analysis</span>, QC, and <span class="highlight-experience">Visualization</span>. Proven ability to work cross-functionally with wet-lab scientists and bioinformaticians to derive actionable insights from complex biological datasets. From my projects during my courses, I have hands-on experience with <span class="highlight-experience">Large Language Models (LLMs)</span>, <span class="highlight-experience">Machine Learning</span>, <span class="highlight-experience">Data Mining</span>, and <span class="highlight-experience">Data Modeling</span> to analyze large datasets and build predictive models. 
+    
+    <p><strong>Intellia Therapeutics, Genomics Innovation</strong><br>
+    <strong>Ruan Oliveria, PhD and Mehdi Baratchian, PhD</strong></p>
+    Associate Scientist 1/2025 – Present<br>
+    Senior Research Associate 4/2023 – 1/2025<br>
+
+    <ul>
+      <li>Collaborated with computational biologists and bench scientists to process and analyze CRISPR screen data across multiple delivery modalities (LNP, AAV).</li>
+      <li>Developed Python-based automation for QC, visualization, and normalization of high-throughput sequencing data, enabling platform-agnostic analysis across experimental pipelines.</li>
+      <li>Developed standardized pipelines to compare guide RNA off-target editing.</li>
+      <li>Ensured reproducibility and scalability of pipelines by contributing to shared code repositories and participating in internal review cycles.</li>
+    </ul>
+    <p><strong>Harvard University, Department of Immunology</strong><br>
+    <strong>Martin LaFleur, PhD & Arlene Sharpe, MD, PhD</strong></p>
+
+    Research Assistant III 5/2021 – 4/2023<br>
+    Research Assistant II 5/2020 – 6/2021<br>
+
+    <ul>
+      <li>Designed and executed in vivo CRISPR screens in murine cancer and infection models; performed downstream data processing with custom Python and R pipelines.</li>
+      <li>Performed differential expression analysis and pathway enrichment (DESeq2, GSEA) from tumor RNA-seq data, identifying candidate mechanisms of gene perturbation.</li>
+      <li>Developed QC and screen evaluation scripts (e.g., read coverage, gRNA abundance, fold change distribution) for consistent reproducibility across experiments.</li>
+      <li>Performed end-to-end processing of sequencing data from murine tumor and infection models, including RNA-seq and CRISPR screen results.</li>
+    </ul>`,
+  };
+
+  let clickedProfession = null;
+
+  function updateView(profession) {
+    skillItems.forEach(skill => {
+      skill.classList.remove('highlight', 'hidden');
+      if (skill.getAttribute('data-skill-for') === profession) {
+        skill.classList.add('highlight');
+      } else {
+        skill.classList.add('hidden');
+      }
+    });
+
+    professionItems.forEach(p => {
+      if (p.getAttribute('data-profession') === profession) {
+        p.classList.add('selected');
+      } else {
+        p.classList.remove('selected');
+      }
+    });
+
+    experienceText.innerHTML = experiences[profession] || 'No experience available.';
+  }
+
+  function resetView() {
+    skillItems.forEach(skill => {
+      skill.classList.remove('highlight', 'hidden');
+    });
+
+    professionItems.forEach(p => p.classList.remove('selected'));
+
+    experienceText.innerHTML = 'Hover over a profession to see relevant experience here.';
+  }
+
+  professionItems.forEach(profession => {
+    profession.addEventListener('mouseenter', () => {
+      if (clickedProfession === null) {
+        const prof = profession.getAttribute('data-profession');
+        updateView(prof);
+      }
+    });
+
+    profession.addEventListener('mouseleave', () => {
+      if (clickedProfession === null) {
+        resetView();
+      }
+    });
+
+    profession.addEventListener('click', () => {
+      const prof = profession.getAttribute('data-profession');
+      if (clickedProfession === prof) {
+        clickedProfession = null;
+        resetView();
+      } else {
+        clickedProfession = prof;
+        updateView(prof);
+      }
+    });
+
+    profession.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        profession.click();
+      }
+    });
+  });
+
+  resetView();
+  const toggle = document.getElementById('dark-mode-toggle');
+
+function setDarkMode(enabled) {
+  if (enabled) {
+    document.body.classList.remove('light-mode');
+    toggle.setAttribute('aria-checked', 'true');
+  } else {
+    document.body.classList.add('light-mode');
+    toggle.setAttribute('aria-checked', 'false');
+  }
+}
+
+// Initialize state (dark mode default)
+setDarkMode(false);
+
+toggle.addEventListener('change', () => {
+  setDarkMode(!toggle.checked); // checked means light mode off
+});
+
+// Sync toggle checked state with body class on page load
+window.addEventListener('DOMContentLoaded', () => {
+  toggle.checked = true; // default dark mode ON, so unchecked means dark mode
+});
+</script>
+
+</body>
+</html>
